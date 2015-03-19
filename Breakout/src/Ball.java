@@ -12,52 +12,79 @@ public class Ball extends Circle {
 	private PlayArea pa;
 	private Timeline animation;
 
-	  public Ball(PlayArea pa) {		
-	    super(rad,rad,rad);
-	    this.pa = pa;
-	    setFill(Color.GREEN); // Set ball color
-	    
-	    // Create an animation for moving the ball
-	    animation = new Timeline(
-	      new KeyFrame(Duration.millis(50), e -> moveBall()));
-	    animation.setCycleCount(Timeline.INDEFINITE);
-	    animation.play(); // Start animation
-	  }
+	public Ball(PlayArea pa) {
+		super(rad, rad, rad);
+		this.pa = pa;
+		setFill(Color.GREEN); // Set ball color
 
-	  public void play() {
-	    animation.play();
-	  }
+		// Create an animation for moving the ball
+		animation = new Timeline(new KeyFrame(Duration.millis(50),
+				e -> moveBall()));
+		animation.setCycleCount(Timeline.INDEFINITE);
+		animation.play(); // Start animation
+	}
 
-	  public void pause() {
-	    animation.pause();
-	  }
+	public void play() {
+		animation.play();
+	}
 
-	  public void increaseSpeed() {
-	    animation.setRate(animation.getRate() + 0.1);
-	  }
+	public void pause() {
+		animation.pause();
+	}
 
-	  public void decreaseSpeed() {
-	    animation.setRate(
-	      animation.getRate() > 0 ? animation.getRate() - 0.1 : 0);
-	  }
+	public void increaseSpeed() {
+		animation.setRate(animation.getRate() + 0.1);
+	}
 
-	  public DoubleProperty rateProperty() {
-	    return animation.rateProperty();
-	  }
-	  
-	  protected void moveBall() {
-	    // Check boundaries of PlayArea
-	    if (this.getCenterX() < rad || getCenterX() > pa.getWidth() - rad) {
-	      dx *= -1; // Change ball move direction
-	    }
-	    if (this.getCenterY() < rad || this.getCenterY() > pa.getHeight() - rad) {
-	      dy *= -1; // Change ball move direction
-	    }
+	public void decreaseSpeed() {
+		animation.setRate(animation.getRate() > 0 ? animation.getRate() - 0.1
+				: 0);
+	}
 
-	    // Adjust ball position
-	    this.setCenterX(getCenterX() + dx);
-	    this.setCenterY(getCenterY() + dy);
-	    
-	  }
+	public DoubleProperty rateProperty() {
+		return animation.rateProperty();
+	}
+
+	protected void moveBall() {
+
+		bounceWall();
+		bounceRacket();
+
+	}
+
+	boolean bounceWall() {
+		// Check boundaries of PlayArea
+		boolean bounced = false;
+		if (this.getCenterX() < rad || getCenterX() > pa.getWidth() - rad) {
+			dx *= -1; // Change ball move direction
+			bounced = true;
+		} else if (this.getCenterY() < rad
+				|| this.getCenterY() > pa.getHeight() - rad) {
+			dy *= -1; // Change ball move direction
+			bounced = true;
+		}
+
+		// Adjust ball position
+		this.setCenterX(getCenterX() + dx);
+		this.setCenterY(getCenterY() + dy);
+		return bounced;
+
+	}
+
+	boolean bounceRacket() {
+		boolean bounced = false;
+
+		if ((this.getCenterY() + rad >= pa.r.getY())
+				&& (this.getCenterX() >= pa.r.getX() && this.getCenterX() <= pa.r
+						.getX() + pa.r.getWidth())) {
+			dy *= -1; // Change ball move direction
+			bounced = true;
+		}
+
+		// Adjust ball position
+		this.setCenterX(getCenterX() + dx);
+		this.setCenterY(getCenterY() + dy);
+		return bounced;
+    }
 
 }
