@@ -8,7 +8,7 @@ import javafx.util.Duration;
 
 public class Ball extends Circle {
 	public final static double rad = 10;
-	private double dx = 3, dy = 3;
+	private double dx = 2, dy = 2;
 	private PlayArea pa;
 	private Timeline animation;
 
@@ -18,7 +18,7 @@ public class Ball extends Circle {
 		setFill(Color.GREEN); // Set ball color
 
 		// Create an animation for moving the ball
-		animation = new Timeline(new KeyFrame(Duration.millis(50),
+		animation = new Timeline(new KeyFrame(Duration.millis(15),
 				e -> moveBall()));
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.play(); // Start animation
@@ -49,6 +49,7 @@ public class Ball extends Circle {
 
 		bounceWall();
 		bounceRacket();
+		bounceBofB();
 
 	}
 
@@ -86,5 +87,29 @@ public class Ball extends Circle {
 		this.setCenterY(getCenterY() + dy);
 		return bounced;
     }
+	
+	/*
+	boolean bounceBofB() {
+		boolean bounced = false;
+		for (Brick b : pa.bob.theBricks) {
+			//if (((Path)Shape.intersect(bullet, target)).getElements().size() > 0)
+			  if (((Path)Shape.intersect(this,b)).getElements().size() > 0)
+				
+			
+		}
+
+		if ((this.getCenterY() + rad >= pa.r.getY())
+				&& (this.getCenterX() >= pa.r.getX() && this.getCenterX() <= pa.r
+						.getX() + pa.r.getWidth())) {
+			dy *= -1; // Change ball move direction
+			bounced = true;
+		}
+
+		// Adjust ball position
+		this.setCenterX(getCenterX() + dx);
+		this.setCenterY(getCenterY() + dy);
+		return bounced;
+    }
+	*/
 
 }
