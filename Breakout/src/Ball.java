@@ -49,7 +49,7 @@ public class Ball extends Circle {
 
 		bounceWall();
 		bounceRacket();
-		bounceBofB();
+		//bounceBofB();
 
 	}
 

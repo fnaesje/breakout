@@ -3,8 +3,8 @@
 import javafx.scene.layout.Pane;
 
 public class PlayArea extends Pane {
-	public final int WIDTH = 600;
-	public final int HEIGHT = 400;
+	public final int WIDTH = 800;
+	public final int HEIGHT = 600;
 	Racket r;
 	Ball b;
 	BlockOfBricks bob;
@@ -19,7 +19,7 @@ public class PlayArea extends Pane {
 		
 		// The mouse is moved in the PlayArea Pane,
 		// so the action listener must be defined here
-		// but the racket itself is responsible to move itself...
+		// but the racket is responsible to move itself...
 		setOnMouseMoved(e -> {r.move(e);});
 			
 

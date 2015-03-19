@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class BlockOfBricks {
 	final int spacing = 2;
-	private ArrayList<Brick> theBricks = new ArrayList<Brick>();
+	ArrayList<Brick> theBricks = new ArrayList<Brick>();
 	private int numWidth, numHeight;
 	private int brickWidth, brickHeight;
 	public BlockOfBricks(PlayArea pa, int numHeight, int numWidth) {
